@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.20.1-2.0.1.124] - 2024-07-23
+### Changed
+ - Update buildscript
+ - Update versions
+ - Update uteamcore
+
 ## [1.20.1-2.0.1.122] - 2023-09-27
 ### Changed
  - Update versions
