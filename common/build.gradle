@@ -13,11 +13,11 @@ version = gradlefiles.version()
 sourceSets {
 	common {
 		java {
-			srcDirs += "src/common-api/java"
-			srcDirs += "src/common-integration/java"
+			srcDirs += "src/common_api/java"
+			srcDirs += "src/common_integration/java"
 		}
 		resources {
-			srcDirs += "src/common-generated/resources"
+			srcDirs += "src/common_generated/resources"
 		}
 	}
 	main {
@@ -32,7 +32,7 @@ sourceSets {
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
+		languageVersion = JavaLanguageVersion.of(21)
 	}
 	withSourcesJar()
 	withJavadocJar()
@@ -79,7 +79,7 @@ dependencies {
 	modImplementation gradlefiles.fabricLoaderDependency()
 	modRuntimeOnly gradlefiles.fabricApiDependency()
 	
-	modImplementation "info.u-team:u_team_core-common-1.20.1:5.1.4.312"
+	modImplementation "info.u-team:u_team_core-common-1.21:5.6.0.317"
 	
 	modCompileOnly "mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}"
 }

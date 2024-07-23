@@ -1,13 +1,11 @@
 plugins {
-	id "net.minecraftforge.gradle"
-	id "org.parchmentmc.librarian.forgegradle"
-	id "org.spongepowered.mixin"
+	id "net.neoforged.gradle.userdev"
 	id "info.u_team.gradle_files"
 	id "me.modmuss50.mod-publish-plugin"
 	id "maven-publish"
 }
 
-gradlefiles.loaderSuffix = "forge"
+gradlefiles.loaderSuffix = "neoforge"
 
 group = rootProject.group
 base.archivesName = gradlefiles.archivesName()
@@ -35,56 +33,31 @@ java {
 	withJavadocJar()
 }
 
-minecraft {
-	mappings channel: config.forge.mapping_channel, version: config.forge.mapping
-
-	reobf = false
-	
-	runs {
-		client {
-			workingDirectory file("run/client")
-			
-			mods {
-				"${config.mod.modid}" {
-					source sourceSets.main
-				}
-			}
-		}
-		
-		server {
-			workingDirectory file("run/server")
-			
-			mods {
-				"${config.mod.modid}" {
-					source sourceSets.main
-				}
-			}
-		}
-		
-		data {
-			workingDirectory file("run/data")
-			
-			args "--mod", config.mod.modid
-			args "--all"
-			args "--output", gradlefiles.project("common").file("src/common_generated/resources")
-			args "--validate"
-			args "--existing", gradlefiles.project("common").file("src/common/resources")
-			
-			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
-			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
-			
-			mods {
-				"${config.mod.modid}" {
-					source sourceSets.main
-				}
-			}
-		}
+subsystems {
+	parchment {
+		minecraftVersion = config.neoforge.parchment.minecraft_version
+		mappingsVersion = config.neoforge.parchment.version
 	}
 }
 
-mixin {
-	debug.verbose = true
-	debug.export = true
+runs {
+	client {
+		workingDirectory file("run/client").with { mkdirs(); it }
+		
+		jvmArguments "-Dmixin.debug.verbose=true"
+		jvmArguments "-Dmixin.debug.export=true"
+		
+		modSources sourceSets.main
+	}
+	
+	server {
+		workingDirectory file("run/server").with { mkdirs(); it }
+		
+		jvmArguments "-Dmixin.debug.verbose=true"
+		jvmArguments "-Dmixin.debug.export=true"
+		
+		modSources sourceSets.main
+	}
 }
 
 tasks.withType(Jar).configureEach { task ->
@@ -109,24 +82,30 @@ repositories {
 	maven {
 		url = "https://maven.blamejared.com"
 	}
+	maven {
+		url = "https://maven.octo-studios.com/releases"
+	}
 }
 
 dependencies {
-	minecraft gradlefiles.forgeDependency()
-	
-	implementation "info.u-team:u_team_core-forge-1.21:5.6.0.317"
+	implementation gradlefiles.neoForgeDependency()
+
+    implementation "info.u-team:u_team_core-neoforge-1.21:5.6.0.317"
 	
 	compileOnly "mezz.jei:jei-${config.minecraft.version}-forge-api:${config.jei.version}"
 	compileOnly "mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}"
 	runtimeOnly "mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}"
+
+	compileOnly "top.theillusivec4.curios:curios-neoforge:${config.curios_continuation.version}:api"
+	runtimeOnly "top.theillusivec4.curios:curios-neoforge:${config.curios_continuation.version}"
 }
 
 publishMods {
 	file = tasks.named("jar").flatMap { jar -> jar.archiveFile }
-	displayName = "${config.publish.display}-Forge-${config.minecraft.version}-${project.version}"
+	displayName = "${config.publish.display}-NeoForge-${config.minecraft.version}-${project.version}"
 	changelog = "[Changelog for version ${project.version}](${gradlefiles.changelogUrl()})"
 	type = me.modmuss50.mpp.ReleaseType.of(config.publish.type)
-	modLoaders.add("forge")
+	modLoaders.add("neoforge")
 	
 	curseforge {
 		accessToken = defaultPropertyValue("curseforge.token")
@@ -138,7 +117,7 @@ publishMods {
 		
 		requires("u-team-core")
 		optional("jei")
-		optional("curios")
+		optional("curios-continuation")
 	}
 	
 	modrinth {
@@ -149,7 +128,7 @@ publishMods {
 		
 		requires("u-team-core")
 		optional("jei")
-		optional("curios")
+		optional("curios-continuation")
 	}
 	
 	discord {
@@ -158,7 +137,7 @@ publishMods {
 		username = "Mod Update"
 		avatarUrl = "https://raw.githubusercontent.com/MC-U-Team/${config.github.name}/${config.github.branch}/logo.png"
 		
-		content = changelog.map { log -> "# ${config.minecraft.version}: ${config.publish.display} (Forge)\n" + log}
+		content = changelog.map { log -> "# ${config.minecraft.version}: ${config.publish.display} (NeoForge)\n" + log}
 	}
 }
 
@@ -177,6 +156,9 @@ publishing {
 			artifactId project.base.archivesName.get()
 			
 			from gradlefiles.filteredJavaComponent {
+                filterDependency { holder ->
+					"top.theillusivec4.curios" == holder.dependency.group
+				}
 				filterDependency { holder ->
 					"mezz.jei" == holder.dependency.group
 				}
