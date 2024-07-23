@@ -14,7 +14,6 @@ version = gradlefiles.version()
 sourceSets {
 	main {
 		java {
-			srcDirs += "src/data/java"
 			srcDirs += "src/integration/java"
 			srcDirs += gradlefiles.project("common").sourceSets.common.java.srcDirs
 		}
@@ -22,6 +21,11 @@ sourceSets {
 			srcDirs += "src/integration/resources"
 			srcDirs += gradlefiles.project("common").sourceSets.common.resources.srcDirs
 		}
+	}
+	data {
+		java
+		compileClasspath += main.compileClasspath + main.output
+		runtimeClasspath += main.runtimeClasspath
 	}
 }
 
@@ -41,6 +45,9 @@ subsystems {
 }
 
 runs {
+	sourceSets.main.runs.modIdentifier = config.mod.modid
+	sourceSets.data.runs.modIdentifier = config.mod.modid
+	
 	client {
 		workingDirectory file("run/client").with { mkdirs(); it }
 		
@@ -57,6 +64,22 @@ runs {
 		jvmArguments "-Dmixin.debug.export=true"
 		
 		modSources sourceSets.main
+	}
+	
+	data {
+		workingDirectory file("run/data").with { mkdirs(); it }
+		
+		programArguments "--mod", config.mod.modid
+		programArguments "--all"
+		programArguments "--output", gradlefiles.project("common").file("src/common_generated/resources").absolutePath
+		programArguments "--validate"
+		programArguments "--existing", gradlefiles.project("common").file("src/common/resources").absolutePath
+		
+		systemProperties "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
+		systemProperties "coremod.uteamcore.dataprovider-set-indent.value", "true"
+		
+		modSources sourceSets.main
+		modSources sourceSets.data
 	}
 }
 
@@ -89,13 +112,13 @@ repositories {
 
 dependencies {
 	implementation gradlefiles.neoForgeDependency()
-
-    implementation "info.u-team:u_team_core-neoforge-1.21:5.6.0.317"
+	
+	implementation "info.u-team:u_team_core-neoforge-1.21:5.6.0.317"
 	
 	compileOnly "mezz.jei:jei-${config.minecraft.version}-forge-api:${config.jei.version}"
 	compileOnly "mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}"
 	runtimeOnly "mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}"
-
+	
 	compileOnly "top.theillusivec4.curios:curios-neoforge:${config.curios_continuation.version}:api"
 	runtimeOnly "top.theillusivec4.curios:curios-neoforge:${config.curios_continuation.version}"
 }
@@ -156,7 +179,7 @@ publishing {
 			artifactId project.base.archivesName.get()
 			
 			from gradlefiles.filteredJavaComponent {
-                filterDependency { holder ->
+				filterDependency { holder ->
 					"top.theillusivec4.curios" == holder.dependency.group
 				}
 				filterDependency { holder ->

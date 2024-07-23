@@ -1,0 +1,36 @@
+modLoader="javafml"
+loaderVersion="[48,)"
+issueTrackerURL="https://github.com/MC-U-Team/Useful-Backpacks/issues"
+license="Apache-2.0 License"
+
+[[mods]]
+	modId="usefulbackpacks"
+	version="${file.jarVersion}"
+	displayName="Useful Backpacks"
+	displayURL="https://u-team.info/mods/usefulbackpacks"
+	updateJSONURL="https://api.u-team.info/update/usefulbackpacks.json"
+	logoFile="logo.png"
+	credits="Team U-Team"
+	authors="HyCraftHD"
+	description="Join our discord server here: https://discord.hycrafthd.net\n\nThis mod adds cool new backpacks to your game."
+	
+	[[dependencies.usefulbackpacks]]
+	    modId="forge"
+	    mandatory=true
+	    versionRange="[48.0.7,)"
+	    ordering="NONE"
+	    side="BOTH"
+	
+	[[dependencies.usefulbackpacks]]
+	    modId="minecraft"
+	    mandatory=true
+	    versionRange="[1.20.2]"
+	    ordering="NONE"
+	    side="BOTH"
+	    
+	[[dependencies.usefulbackpacks]]
+	    modId="uteamcore"
+	    mandatory=true
+	    versionRange="[5.1.4.312,)"
+	    ordering="NONE"
+	    side="BOTH"

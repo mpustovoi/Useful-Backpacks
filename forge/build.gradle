@@ -16,7 +16,6 @@ version = gradlefiles.version()
 sourceSets {
 	main {
 		java {
-			srcDirs += "src/data/java"
 			srcDirs += "src/integration/java"
 			srcDirs += gradlefiles.project("common").sourceSets.common.java.srcDirs
 		}
@@ -37,7 +36,7 @@ java {
 
 minecraft {
 	mappings channel: config.forge.mapping_channel, version: config.forge.mapping
-
+	
 	reobf = false
 	
 	runs {
@@ -53,25 +52,6 @@ minecraft {
 		
 		server {
 			workingDirectory file("run/server")
-			
-			mods {
-				"${config.mod.modid}" {
-					source sourceSets.main
-				}
-			}
-		}
-		
-		data {
-			workingDirectory file("run/data")
-			
-			args "--mod", config.mod.modid
-			args "--all"
-			args "--output", gradlefiles.project("common").file("src/common_generated/resources")
-			args "--validate"
-			args "--existing", gradlefiles.project("common").file("src/common/resources")
-			
-			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
-			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
 			
 			mods {
 				"${config.mod.modid}" {
