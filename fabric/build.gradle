@@ -123,7 +123,10 @@ publishMods {
 		minecraftVersions.add(config.minecraft.version)
 		javaVersions.add(JavaVersion.VERSION_17)
 		
+		requires("fabric-api")
 		requires("u-team-core")
+		optional("jei")
+		optional("trinkets")
 	}
 	
 	modrinth {
@@ -132,7 +135,10 @@ publishMods {
 		projectId = config.modrinth.id
 		minecraftVersions.add(config.minecraft.version)
 		
+		requires("fabric-api")
 		requires("u-team-core")
+		optional("jei")
+		optional("trinkets")
 	}
 	
 	discord {
