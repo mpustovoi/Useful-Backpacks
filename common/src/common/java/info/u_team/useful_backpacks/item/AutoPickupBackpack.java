@@ -7,16 +7,18 @@ import info.u_team.u_team_core.util.TooltipCreator;
 import info.u_team.useful_backpacks.UsefulBackpacksReference;
 import info.u_team.useful_backpacks.api.Backpack;
 import info.u_team.useful_backpacks.api.Filter;
+import info.u_team.useful_backpacks.component.ItemFilterComponent;
+import info.u_team.useful_backpacks.component.TagFilterComponent;
+import info.u_team.useful_backpacks.init.UsefulBackpacksDataComponentTypes;
 import info.u_team.useful_backpacks.inventory.FilterInventory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.Item.TooltipContext;
-import net.minecraft.world.level.Level;
 
 public interface AutoPickupBackpack extends Backpack {
 	
@@ -57,17 +59,23 @@ public interface AutoPickupBackpack extends Backpack {
 				tooltip.add(TooltipCreator.create(UsefulBackpacksReference.MODID, "backpack", "filter_applied", 0).withStyle(ChatFormatting.AQUA));
 				
 				filters.stream().filter(filterStack -> filterStack.getItem() instanceof ItemFilterItem).forEach(filterStack -> {
-					final MutableComponent component = TooltipCreator.create(UsefulBackpacksReference.MODID, "backpack", "filter_applied_item", 0, Component.translatable(ItemStack.of(filterStack.getTag().getCompound("stack")).getDescriptionId()).withStyle(ChatFormatting.YELLOW));
-					if (filterStack.getTag().getBoolean("strict")) {
-						component.append(" ").append(TooltipCreator.create(UsefulBackpacksReference.MODID, "backpack", "filter_applied_item", 1));
+					final ItemFilterComponent itemComponent = stack.get(UsefulBackpacksDataComponentTypes.ITEM_FILTER_COMPONENT.get());
+					if (itemComponent != null && itemComponent.isPresent() && !itemComponent.getStack().isEmpty()) {
+						final MutableComponent component = TooltipCreator.create(UsefulBackpacksReference.MODID, "backpack", "filter_applied_item", 0, Component.translatable(itemComponent.getStack().getDescriptionId()).withStyle(ChatFormatting.YELLOW));
+						if (itemComponent.isStrict()) {
+							component.append(" ").append(TooltipCreator.create(UsefulBackpacksReference.MODID, "backpack", "filter_applied_item", 1));
+						}
+						component.withStyle(ChatFormatting.GRAY);
+						tooltip.add(component);
 					}
-					component.withStyle(ChatFormatting.GRAY);
-					tooltip.add(component);
 				});
 				
 				filters.stream().filter(filterStack -> filterStack.getItem() instanceof TagFilterItem).forEach(filterStack -> {
-					final MutableComponent component = TooltipCreator.create(UsefulBackpacksReference.MODID, "backpack", "filter_applied_tag", 0, Component.literal(filterStack.getTag().getString("id")).withStyle(ChatFormatting.YELLOW)).withStyle(ChatFormatting.GRAY);
-					tooltip.add(component);
+					final TagFilterComponent itemComponent = stack.get(UsefulBackpacksDataComponentTypes.TAG_FILTER_COMPONENT.get());
+					if (itemComponent != null && itemComponent.isPresent()) {
+						final MutableComponent component = TooltipCreator.create(UsefulBackpacksReference.MODID, "backpack", "filter_applied_tag", 0, Component.literal(itemComponent.getTag().location().toString()).withStyle(ChatFormatting.YELLOW)).withStyle(ChatFormatting.GRAY);
+						tooltip.add(component);
+					}
 				});
 			}
 		}

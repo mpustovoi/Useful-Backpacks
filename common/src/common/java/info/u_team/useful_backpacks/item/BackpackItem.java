@@ -4,6 +4,7 @@ import java.util.List;
 
 import info.u_team.u_team_core.item.UItem;
 import info.u_team.u_team_core.util.MenuUtil;
+import info.u_team.useful_backpacks.init.UsefulBackpacksDataComponentTypes;
 import info.u_team.useful_backpacks.inventory.BackpackInventory;
 import info.u_team.useful_backpacks.menu.BackpackMenu;
 import info.u_team.useful_backpacks.type.BackpackType;
@@ -16,6 +17,7 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.Level;
 
 public class BackpackItem extends UItem implements AutoPickupBackpack {
@@ -23,7 +25,9 @@ public class BackpackItem extends UItem implements AutoPickupBackpack {
 	private final BackpackType backpack;
 	
 	public BackpackItem(BackpackType backpack) {
-		super(new Properties().stacksTo(1).rarity(backpack.getRarity()));
+		super(new Properties().stacksTo(1).rarity(backpack.getRarity()) //
+				.component(UsefulBackpacksDataComponentTypes.BACKPACK_COMPONENT.get(), ItemContainerContents.EMPTY) //
+				.component(UsefulBackpacksDataComponentTypes.FILTER_COMPONENT.get(), ItemContainerContents.EMPTY));
 		this.backpack = backpack;
 	}
 	

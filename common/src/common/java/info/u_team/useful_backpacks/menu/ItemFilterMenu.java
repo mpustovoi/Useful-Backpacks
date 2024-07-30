@@ -1,10 +1,13 @@
 package info.u_team.useful_backpacks.menu;
 
+import java.util.Optional;
+
 import info.u_team.u_team_core.api.sync.MessageHolder;
 import info.u_team.u_team_core.menu.UContainerMenu;
+import info.u_team.useful_backpacks.component.ItemFilterComponent;
+import info.u_team.useful_backpacks.init.UsefulBackpacksDataComponentTypes;
 import info.u_team.useful_backpacks.init.UsefulBackpacksMenuTypes;
 import info.u_team.useful_backpacks.menu.slot.ItemFilterSlot;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -34,9 +37,9 @@ public class ItemFilterMenu extends UContainerMenu {
 		this.selectedSlot = selectedSlot;
 		this.isStrict = isStrict;
 		
-		final CompoundTag compound = filterStack.getTagElement("stack");
-		if (compound != null) {
-			filterItemSlotInventory.setItem(0, ItemStack.of(compound));
+		final ItemFilterComponent component = filterStack.get(UsefulBackpacksDataComponentTypes.ITEM_FILTER_COMPONENT.get());
+		if (component != null && component.isPresent()) {
+			filterItemSlotInventory.setItem(0, component.getStack());
 		}
 		
 		addSlots((index, xPosition, yPosition) -> new ItemFilterSlot(filterItemSlotInventory, index, xPosition, yPosition), 1, 1, 17, 17);
@@ -45,11 +48,9 @@ public class ItemFilterMenu extends UContainerMenu {
 		strictMessage = addDataHolderToServer(new MessageHolder(buffer -> {
 			final boolean newIsStrict = buffer.readBoolean();
 			if (!filterStack.isEmpty()) {
-				if (!newIsStrict) {
-					filterStack.removeTagKey("strict");
-				} else {
-					filterStack.getOrCreateTag().putBoolean("strict", newIsStrict);
-				}
+				filterStack.update(UsefulBackpacksDataComponentTypes.ITEM_FILTER_COMPONENT.get(), ItemFilterComponent.EMPTY, old -> {
+					return ItemFilterComponent.of(newIsStrict, Optional.ofNullable(old.isPresent() ? old.getStack() : null));
+				});
 			}
 		}));
 	}
@@ -63,11 +64,10 @@ public class ItemFilterMenu extends UContainerMenu {
 	public void broadcastChanges() {
 		if (!filterStack.isEmpty()) {
 			final ItemStack stackToFilter = filterItemSlotInventory.getItem(0);
-			if (stackToFilter.isEmpty()) {
-				filterStack.removeTagKey("stack");
-			} else {
-				stackToFilter.save(filterStack.getOrCreateTagElement("stack"));
-			}
+			
+			filterStack.update(UsefulBackpacksDataComponentTypes.ITEM_FILTER_COMPONENT.get(), ItemFilterComponent.EMPTY, old -> {
+				return ItemFilterComponent.of(old.isStrict(), Optional.ofNullable(stackToFilter));
+			});
 		}
 		
 		super.broadcastChanges();

@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class FilterSlot extends Slot {
 	
-	public static final ResourceLocation BACKGROUND = new ResourceLocation(UsefulBackpacksReference.MODID, "item/empty_filter_slot");
+	public static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(UsefulBackpacksReference.MODID, "item/empty_filter_slot");
 	
 	private static final Pair<ResourceLocation, ResourceLocation> ICON = Pair.of(InventoryMenu.BLOCK_ATLAS, BACKGROUND);
 	

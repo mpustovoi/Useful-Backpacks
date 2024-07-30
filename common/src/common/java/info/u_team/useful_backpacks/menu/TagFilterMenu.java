@@ -2,8 +2,11 @@ package info.u_team.useful_backpacks.menu;
 
 import info.u_team.u_team_core.api.sync.MessageHolder;
 import info.u_team.u_team_core.menu.UContainerMenu;
+import info.u_team.useful_backpacks.component.TagFilterComponent;
+import info.u_team.useful_backpacks.init.UsefulBackpacksDataComponentTypes;
 import info.u_team.useful_backpacks.init.UsefulBackpacksMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
@@ -32,9 +35,12 @@ public class TagFilterMenu extends UContainerMenu {
 			final String newTag = buffer.readUtf();
 			if (!filterStack.isEmpty()) {
 				if (newTag.isEmpty()) {
-					filterStack.removeTagKey("id");
+					filterStack.set(UsefulBackpacksDataComponentTypes.TAG_FILTER_COMPONENT.get(), TagFilterComponent.EMPTY);
 				} else {
-					filterStack.getOrCreateTag().putString("id", newTag);
+					final ResourceLocation location = ResourceLocation.tryParse(newTag);
+					if (location != null) {
+						filterStack.set(UsefulBackpacksDataComponentTypes.TAG_FILTER_COMPONENT.get(), TagFilterComponent.of(location));
+					}
 				}
 			}
 		}));
