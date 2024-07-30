@@ -47,7 +47,7 @@ public class EnderChestBackpackItem extends UItem implements AutoPickupBackpack 
 	}
 	
 	@Override
-	public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
-		addTooltip(stack, level, tooltip, flag);
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+		addTooltip(stack, context, tooltip, flag);
 	}
 }

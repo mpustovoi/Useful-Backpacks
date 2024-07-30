@@ -1,14 +1,15 @@
 package info.u_team.useful_backpacks.inventory;
 
-import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.ContainerHelper;
+import info.u_team.useful_backpacks.component.BackpackComponent;
+import info.u_team.useful_backpacks.init.UsefulBackpacksDataComponentTypes;
+import info.u_team.useful_backpacks.type.BackpackType;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 
 public class BackpackInventory extends SimpleContainer {
 	
 	private final ItemStack stack;
+	private BackpackType type;
 	
 	public BackpackInventory(ItemStack stack, int count) {
 		super(count);
@@ -21,32 +22,18 @@ public class BackpackInventory extends SimpleContainer {
 	}
 	
 	public void readItemStack() {
-		if (stack.getTag() != null) {
-			readNBT(stack.getTag());
+		final BackpackComponent component = stack.get(UsefulBackpacksDataComponentTypes.BACKPACK_COMPONENT.get());
+		if (component != null) {
+			component.getContents().copyInto(items);
+			type = component.getType();
 		}
 	}
 	
 	public void writeItemStack() {
-		if (isEmpty()) {
-			stack.removeTagKey("Items");
-		} else {
-			writeNBT(stack.getOrCreateTag());
+		if (type != null) {
+			final BackpackComponent component = new BackpackComponent(type, items);
+			stack.set(UsefulBackpacksDataComponentTypes.BACKPACK_COMPONENT.get(), component);
 		}
 	}
 	
-	private void readNBT(CompoundTag compound) {
-		final NonNullList<ItemStack> list = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
-		ContainerHelper.loadAllItems(compound, list);
-		for (int index = 0; index < list.size(); index++) {
-			setItem(index, list.get(index));
-		}
-	}
-	
-	private void writeNBT(CompoundTag compound) {
-		final NonNullList<ItemStack> list = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
-		for (int index = 0; index < list.size(); index++) {
-			list.set(index, getItem(index));
-		}
-		ContainerHelper.saveAllItems(compound, list, false);
-	}
 }

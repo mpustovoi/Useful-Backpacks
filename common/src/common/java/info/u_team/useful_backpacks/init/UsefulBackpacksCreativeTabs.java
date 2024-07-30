@@ -2,7 +2,6 @@ package info.u_team.useful_backpacks.init;
 
 import java.util.List;
 
-import info.u_team.u_team_core.api.dye.DyeableItem;
 import info.u_team.u_team_core.api.registry.CreativeModeTabRegister;
 import info.u_team.u_team_core.api.registry.RegistryEntry;
 import info.u_team.useful_backpacks.UsefulBackpacksReference;
@@ -10,7 +9,9 @@ import info.u_team.useful_backpacks.item.BackpackItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.DyedItemColor;
 
 public class UsefulBackpacksCreativeTabs {
 	
@@ -27,7 +28,7 @@ public class UsefulBackpacksCreativeTabs {
 				output.accept(item);
 				if (item instanceof BackpackItem) {
 					for (final DyeColor color : DyeColor.values()) {
-						output.accept(DyeableItem.colorStack(new ItemStack(item), List.of(color)));
+						output.accept(DyedItemColor.applyDyes(new ItemStack(item), List.of(DyeItem.byColor(color))));
 					}
 				}
 			});

@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class FilterConfiguratorScreen extends UContainerMenuScreen<FilterConfiguratorMenu> {
 	
-	private static final ResourceLocation BACKGROUND = new ResourceLocation(UsefulBackpacksReference.MODID, "textures/gui/filter_configurator.png");
+	private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(UsefulBackpacksReference.MODID, "textures/gui/filter_configurator.png");
 	
 	public FilterConfiguratorScreen(FilterConfiguratorMenu menu, Inventory playerInventory, Component title) {
 		super(menu, playerInventory, title, BACKGROUND);

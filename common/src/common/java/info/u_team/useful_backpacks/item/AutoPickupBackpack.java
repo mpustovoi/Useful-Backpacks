@@ -15,6 +15,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.level.Level;
 
 public interface AutoPickupBackpack extends Backpack {
@@ -35,7 +36,7 @@ public interface AutoPickupBackpack extends Backpack {
 		return false;
 	}
 	
-	default void addTooltip(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
+	default void addTooltip(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
 		final List<ItemStack> filters = new ArrayList<>();
 		
 		final FilterInventory filterInventory = new FilterInventory(stack);

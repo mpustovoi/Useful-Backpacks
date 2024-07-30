@@ -2,7 +2,6 @@ package info.u_team.useful_backpacks.item;
 
 import java.util.List;
 
-import info.u_team.u_team_core.api.dye.DyeableItem;
 import info.u_team.u_team_core.item.UItem;
 import info.u_team.u_team_core.util.MenuUtil;
 import info.u_team.useful_backpacks.inventory.BackpackInventory;
@@ -19,14 +18,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
-public class BackpackItem extends UItem implements AutoPickupBackpack, DyeableItem {
+public class BackpackItem extends UItem implements AutoPickupBackpack {
 	
 	private final BackpackType backpack;
 	
 	public BackpackItem(BackpackType backpack) {
 		super(new Properties().stacksTo(1).rarity(backpack.getRarity()));
 		this.backpack = backpack;
-		addColoredItem(this);
 	}
 	
 	@Override
@@ -61,8 +59,8 @@ public class BackpackItem extends UItem implements AutoPickupBackpack, DyeableIt
 	}
 	
 	@Override
-	public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
-		addTooltip(stack, level, tooltip, flag);
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+		addTooltip(stack, context, tooltip, flag);
 	}
 	
 	public BackpackType getBackpack() {
@@ -70,8 +68,6 @@ public class BackpackItem extends UItem implements AutoPickupBackpack, DyeableIt
 	}
 	
 	// Default backpack color if not present
-	
-	@Override
 	public int getDefaultColor() {
 		return 0x816040;
 	}

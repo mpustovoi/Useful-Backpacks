@@ -9,14 +9,11 @@ public class UsefulBackpacksCommonConstruct implements ModConstruct {
 	
 	@Override
 	public void construct() {
-		//ModLoadingContext.get().registerConfig(Type.COMMON, ForgeCommonConfig.CONFIG);
-		
 		UsefulBackpacksBlocks.register();
 		UsefulBackpacksCreativeTabs.registerMod();
 		UsefulBackpacksMenuTypes.register();
 		UsefulBackpacksItems.register();
 		UsefulBackpacksRecipeSerializers.register();
-		
-		// BusRegister.registerForge(ItemPickupEventHandler::registerForge);
+		UsefulBackpacksDataComponentTypes.register();
 	}
 }

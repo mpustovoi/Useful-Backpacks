@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 @JeiPlugin
 public class UsefulBackpacksJeiPlugin implements IModPlugin {
 	
-	private final ResourceLocation id = new ResourceLocation(UsefulBackpacksReference.MODID, "jei");
+	private final ResourceLocation id = ResourceLocation.fromNamespaceAndPath(UsefulBackpacksReference.MODID, "jei");
 	
 	@Override
 	public ResourceLocation getPluginUid() {

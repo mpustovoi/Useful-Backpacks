@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class TagFilterScreen extends UContainerMenuScreen<TagFilterMenu> {
 	
-	private static final ResourceLocation BACKGROUND = new ResourceLocation(UsefulBackpacksReference.MODID, "textures/gui/tag_filter.png");
+	private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(UsefulBackpacksReference.MODID, "textures/gui/tag_filter.png");
 	
 	private final Component tagSearchTextComponent;
 	

@@ -13,7 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class ItemFilterScreen extends UContainerMenuScreen<ItemFilterMenu> {
 	
-	private static final ResourceLocation BACKGROUND = new ResourceLocation(UsefulBackpacksReference.MODID, "textures/gui/item_filter.png");
+	private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(UsefulBackpacksReference.MODID, "textures/gui/item_filter.png");
 	
 	private final Component strictTextComponent;
 	private final Component strictTooltipTextComponent;
