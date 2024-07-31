@@ -9,6 +9,7 @@ public class UsefulBackpacksClientConstruct implements ModConstruct {
 	
 	@Override
 	public void construct() {
+		UsefulBackpacksColors.register();
 		UsefulBackpacksScreens.register();
 	}
 	
