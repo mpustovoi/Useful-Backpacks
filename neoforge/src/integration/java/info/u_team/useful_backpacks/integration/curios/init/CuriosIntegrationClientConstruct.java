@@ -9,7 +9,7 @@ import info.u_team.useful_backpacks.integration.slot_mod.init.SlotModIntegration
 import info.u_team.useful_backpacks.integration.slot_mod.init.SlotModIntegrationKeyMappings;
 import info.u_team.useful_backpacks.integration.slot_mod.util.BackpackSlotModUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.client.settings.IKeyConflictContext;
+import net.neoforged.neoforge.client.settings.IKeyConflictContext;
 
 @Integration(modid = UsefulBackpacksMod.MODID, integration = "curios", client = true)
 public class CuriosIntegrationClientConstruct implements ModIntegration {

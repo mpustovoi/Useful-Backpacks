@@ -2,8 +2,8 @@ package info.u_team.useful_backpacks.integration.curios.init;
 
 import info.u_team.useful_backpacks.init.UsefulBackpacksItems;
 import info.u_team.useful_backpacks.integration.curios.render.CuriosBackpackRenderer;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 public class CuriosIntegrationRenderers {

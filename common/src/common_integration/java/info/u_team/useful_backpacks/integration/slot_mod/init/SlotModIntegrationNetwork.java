@@ -13,7 +13,7 @@ public class SlotModIntegrationNetwork {
 	
 	public static final NetworkMessage<OpenBackpackMessage> OPEN_BACKPACK_MESSAGE = NETWORK.register("open_backpack", NetworkHandlerEnvironment.SERVER, OpenBackpackMessage.STREAM_CODEC, OpenBackpackMessage::handle);
 	
-	static void register() {
+	public static void register() {
 		NETWORK.register();
 	}
 	

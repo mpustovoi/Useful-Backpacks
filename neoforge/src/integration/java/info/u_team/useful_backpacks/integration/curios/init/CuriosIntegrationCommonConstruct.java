@@ -12,7 +12,7 @@ public class CuriosIntegrationCommonConstruct implements ModIntegration {
 	
 	@Override
 	public void construct() {
-		BusRegister.registerForge(CuriosIntegrationCapabilities::registerForge);
+		BusRegister.registerNeoForge(CuriosIntegrationCapabilities::registerNeoForge);
 		
 		SlotModIntegrationNetwork.register();
 		SlotModIntegrationAddBackpackIntegration.register();

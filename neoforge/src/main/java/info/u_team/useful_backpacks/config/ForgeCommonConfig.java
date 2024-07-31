@@ -3,17 +3,17 @@ package info.u_team.useful_backpacks.config;
 import org.apache.commons.lang3.tuple.Pair;
 
 import info.u_team.u_team_core.util.ConfigValueHolder;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.Builder;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
+import net.neoforged.neoforge.common.ModConfigSpec.Builder;
 
 public class ForgeCommonConfig {
 	
-	public static final ForgeConfigSpec CONFIG;
+	public static final ModConfigSpec CONFIG;
 	private static final ForgeCommonConfig INSTANCE;
 	
 	static {
-		final Pair<ForgeCommonConfig, ForgeConfigSpec> pair = new Builder().configure(ForgeCommonConfig::new);
+		final Pair<ForgeCommonConfig, ModConfigSpec> pair = new Builder().configure(ForgeCommonConfig::new);
 		CONFIG = pair.getRight();
 		INSTANCE = pair.getLeft();
 	}

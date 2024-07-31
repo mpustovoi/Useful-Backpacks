@@ -1,38 +1,23 @@
 package info.u_team.useful_backpacks.integration.curios.init;
 
-import info.u_team.useful_backpacks.api.Backpack;
+import info.u_team.useful_backpacks.init.UsefulBackpacksItems;
 import info.u_team.useful_backpacks.integration.curios.capability.CuriosBackpackCapability;
-import net.minecraft.core.Direction;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import top.theillusivec4.curios.api.CuriosCapability;
-import top.theillusivec4.curios.api.type.capability.ICurio;
 
 public class CuriosIntegrationCapabilities {
 	
-	private static void onAttachCapabilities(AttachCapabilitiesEvent<ItemStack> event) {
-		final ItemStack stack = event.getObject();
-		if (!(stack.getItem() instanceof Backpack)) {
-			return;
-		}
-		
-		event.addCapability(CuriosCapability.ID_ITEM, new ICapabilityProvider() {
-			
-			final LazyOptional<ICurio> curioCapability = LazyOptional.of(() -> new CuriosBackpackCapability(stack));
-			
-			@Override
-			public <T> LazyOptional<T> getCapability(Capability<T> capability, Direction side) {
-				return CuriosCapability.ITEM.orEmpty(capability, curioCapability);
-			}
-		});
+	private static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
+		event.registerItem(CuriosCapability.ITEM, (stack, context) -> new CuriosBackpackCapability(stack), //
+				UsefulBackpacksItems.SMALL_BACKPACK.get(), //
+				UsefulBackpacksItems.MEDIUM_BACKPACK.get(), //
+				UsefulBackpacksItems.LARGE_BACKPACK.get(), //
+				UsefulBackpacksItems.ENDERCHEST_BACKPACK.get());
 	}
 	
-	public static void registerForge(IEventBus bus) {
-		bus.addGenericListener(ItemStack.class, CuriosIntegrationCapabilities::onAttachCapabilities);
+	public static void registerNeoForge(IEventBus bus) {
+		bus.addListener(CuriosIntegrationCapabilities::onRegisterCapabilities);
 	}
 	
 }
