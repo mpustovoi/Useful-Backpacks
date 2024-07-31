@@ -15,6 +15,7 @@ import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_core.util.TagUtil;
 import info.u_team.useful_backpacks.init.UsefulBackpacksCommonTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 
@@ -28,6 +29,8 @@ public class UsefulBackpacksItemTagsProvider extends CommonItemTagsProvider {
 	public void register(HolderLookup.Provider provider) {
 		tag(BACKPACK).add(SMALL_BACKPACK.get(), MEDIUM_BACKPACK.get(), LARGE_BACKPACK.get(), ENDERCHEST_BACKPACK.get());
 		tag(FILTER).add(ITEM_FILTER.get(), TAG_FILTER.get());
+		
+		tag(ItemTags.DYEABLE).add(SMALL_BACKPACK.get(), MEDIUM_BACKPACK.get(), LARGE_BACKPACK.get());
 		
 		tag(TagUtil.createItemTag("curios", "back")).addTag(BACKPACK);
 		tag(TagUtil.createItemTag("trinkets", "chest/back")).addTag(BACKPACK);
