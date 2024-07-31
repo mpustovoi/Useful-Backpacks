@@ -6,7 +6,7 @@ import info.u_team.u_team_core.data.CommonBlockStateProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 
 public class UsefulBackpacksBlockStateProvider extends CommonBlockStateProvider {
 	
@@ -25,7 +25,7 @@ public class UsefulBackpacksBlockStateProvider extends CommonBlockStateProvider 
 	}
 	
 	private ResourceLocation extend(ResourceLocation location, String suffix) {
-		return new ResourceLocation(location.getNamespace(), location.getPath() + suffix);
+		return ResourceLocation.fromNamespaceAndPath(location.getNamespace(), location.getPath() + suffix);
 	}
 	
 }

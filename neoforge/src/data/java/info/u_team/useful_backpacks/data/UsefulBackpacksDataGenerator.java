@@ -9,10 +9,10 @@ import info.u_team.useful_backpacks.data.provider.UsefulBackpacksItemTagsProvide
 import info.u_team.useful_backpacks.data.provider.UsefulBackpacksLanguagesProvider;
 import info.u_team.useful_backpacks.data.provider.UsefulBackpacksLootTableProvider;
 import info.u_team.useful_backpacks.data.provider.UsefulBackpacksRecipeProvider;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 @EventBusSubscriber(modid = UsefulBackpacksMod.MODID, bus = Bus.MOD)
 public class UsefulBackpacksDataGenerator {
