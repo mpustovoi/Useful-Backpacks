@@ -22,6 +22,8 @@ import net.minecraft.world.level.Level;
 
 public class BackpackItem extends UItem implements AutoPickupBackpack {
 	
+	public static final int DEFAULT_COLOR = 0x816040;
+	
 	private final BackpackType backpack;
 	
 	public BackpackItem(BackpackType backpack) {
@@ -69,11 +71,6 @@ public class BackpackItem extends UItem implements AutoPickupBackpack {
 	
 	public BackpackType getBackpack() {
 		return backpack;
-	}
-	
-	// Default backpack color if not present
-	public int getDefaultColor() {
-		return 0x816040;
 	}
 	
 	@Override

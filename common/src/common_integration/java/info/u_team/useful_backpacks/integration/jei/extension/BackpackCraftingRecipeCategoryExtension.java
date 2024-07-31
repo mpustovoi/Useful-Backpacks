@@ -8,9 +8,9 @@ import java.util.stream.Stream;
 
 import com.google.common.collect.Lists;
 
-import info.u_team.u_team_core.api.dye.DyeableItem;
 import info.u_team.u_team_core.util.ColorUtil;
 import info.u_team.u_team_core.util.RGB;
+import info.u_team.useful_backpacks.item.BackpackItem;
 import info.u_team.useful_backpacks.recipe.BackpackCraftingRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -19,9 +19,12 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -49,21 +52,22 @@ public class BackpackCraftingRecipeCategoryExtension implements ICraftingCategor
 		focuses.getItemStackFocuses(RecipeIngredientRole.OUTPUT) //
 				.map(focus -> focus.getTypedValue().getIngredient()) //
 				.findFirst().ifPresent(outputStack -> {
-					if (outputStack.getItem() instanceof DyeableItem dyeable) {
-						final int dyeableColor = dyeable.getColor(outputStack);
+					final DyedItemColor dyedColor = outputStack.get(DataComponents.DYED_COLOR);
+					if (dyedColor != null) {
+						final int dyeableColor = dyedColor.rgb();
 						final DyeColor color = ColorUtil.findClosestDyeColor(new RGB(dyeableColor));
 						final Block wool = ColorUtil.getWoolFromColor(color);
 						for (int index = 0; index < inputs.size(); index++) {
 							final List<ItemStack> list = inputs.get(index);
 							if (list.stream().allMatch(stack -> stack.is(ItemTags.WOOL))) {
-								if (dyeableColor != dyeable.getDefaultColor()) {
+								if (dyeableColor != BackpackItem.DEFAULT_COLOR) {
 									inputs.set(index, List.of(new ItemStack(wool)));
 								} else {
 									inputs.set(index, List.of(new ItemStack(Blocks.WHITE_WOOL)));
 								}
 							}
 						}
-						outputs.set(0, DyeableItem.colorStack(outputs.get(0), List.of(color)));
+						outputs.set(0, DyedItemColor.applyDyes(outputs.get(0), List.of(DyeItem.byColor(color))));
 						changed.set(true);
 					}
 				});
@@ -74,7 +78,7 @@ public class BackpackCraftingRecipeCategoryExtension implements ICraftingCategor
 					if (inputStack.is(ItemTags.WOOL)) {
 						final DyeColor color = ColorUtil.getColorFromWool(inputStack.getItem());
 						if (color != null && color != DyeColor.WHITE) {
-							outputs.set(0, DyeableItem.colorStack(outputs.get(0), List.of(color)));
+							outputs.set(0, DyedItemColor.applyDyes(outputs.get(0), List.of(DyeItem.byColor(color))));
 						}
 						changed.set(true);
 					}
@@ -85,7 +89,7 @@ public class BackpackCraftingRecipeCategoryExtension implements ICraftingCategor
 				if (color == DyeColor.WHITE) {
 					return outputs.get(0);
 				}
-				return DyeableItem.colorStack(outputs.get(0), List.of(color));
+				return DyedItemColor.applyDyes(outputs.get(0), List.of(DyeItem.byColor(color)));
 			}).forEach(outputs::add);
 			outputs.remove(0);
 		}

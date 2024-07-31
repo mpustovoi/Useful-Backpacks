@@ -9,7 +9,7 @@ public class SlotModIntegrationClientEvents {
 	private static void onEndClientTick(Minecraft minecraft) {
 		while (SlotModIntegrationKeyMappings.OPEN_BACKPACK.get().consumeClick()) {
 			if (minecraft.screen == null) {
-				SlotModIntegrationNetwork.NETWORK.sendToServer(new OpenBackpackMessage());
+				SlotModIntegrationNetwork.OPEN_BACKPACK_MESSAGE.sendToServer(new OpenBackpackMessage());
 			}
 		}
 	}
