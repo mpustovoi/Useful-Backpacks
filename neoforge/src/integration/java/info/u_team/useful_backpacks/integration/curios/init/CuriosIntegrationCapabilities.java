@@ -16,7 +16,7 @@ public class CuriosIntegrationCapabilities {
 				UsefulBackpacksItems.ENDERCHEST_BACKPACK.get());
 	}
 	
-	public static void registerNeoForge(IEventBus bus) {
+	public static void registerMod(IEventBus bus) {
 		bus.addListener(CuriosIntegrationCapabilities::onRegisterCapabilities);
 	}
 	

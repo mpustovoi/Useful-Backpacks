@@ -10,7 +10,7 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.config.ModConfig;
 
 @Construct(modid = UsefulBackpacksReference.MODID)
-public class UsefulBackpacksForgeCommonConstruct implements ModConstruct {
+public class UsefulBackpacksNeoForgeCommonConstruct implements ModConstruct {
 	
 	@Override
 	public void construct() {
