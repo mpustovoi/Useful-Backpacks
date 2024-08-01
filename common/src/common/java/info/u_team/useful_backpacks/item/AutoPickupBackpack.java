@@ -59,7 +59,7 @@ public interface AutoPickupBackpack extends Backpack {
 				tooltip.add(TooltipCreator.create(UsefulBackpacksReference.MODID, "backpack", "filter_applied", 0).withStyle(ChatFormatting.AQUA));
 				
 				filters.stream().filter(filterStack -> filterStack.getItem() instanceof ItemFilterItem).forEach(filterStack -> {
-					final ItemFilterComponent itemComponent = stack.get(UsefulBackpacksDataComponentTypes.ITEM_FILTER_COMPONENT.get());
+					final ItemFilterComponent itemComponent = filterStack.get(UsefulBackpacksDataComponentTypes.ITEM_FILTER_COMPONENT.get());
 					if (itemComponent != null && itemComponent.isPresent() && !itemComponent.getStack().isEmpty()) {
 						final MutableComponent component = TooltipCreator.create(UsefulBackpacksReference.MODID, "backpack", "filter_applied_item", 0, Component.translatable(itemComponent.getStack().getDescriptionId()).withStyle(ChatFormatting.YELLOW));
 						if (itemComponent.isStrict()) {
@@ -71,7 +71,7 @@ public interface AutoPickupBackpack extends Backpack {
 				});
 				
 				filters.stream().filter(filterStack -> filterStack.getItem() instanceof TagFilterItem).forEach(filterStack -> {
-					final TagFilterComponent itemComponent = stack.get(UsefulBackpacksDataComponentTypes.TAG_FILTER_COMPONENT.get());
+					final TagFilterComponent itemComponent = filterStack.get(UsefulBackpacksDataComponentTypes.TAG_FILTER_COMPONENT.get());
 					if (itemComponent != null && itemComponent.isPresent()) {
 						final MutableComponent component = TooltipCreator.create(UsefulBackpacksReference.MODID, "backpack", "filter_applied_tag", 0, Component.literal(itemComponent.getTag().location().toString()).withStyle(ChatFormatting.YELLOW)).withStyle(ChatFormatting.GRAY);
 						tooltip.add(component);
