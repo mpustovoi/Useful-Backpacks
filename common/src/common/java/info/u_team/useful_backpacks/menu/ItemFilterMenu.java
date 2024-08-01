@@ -1,7 +1,5 @@
 package info.u_team.useful_backpacks.menu;
 
-import java.util.Optional;
-
 import info.u_team.u_team_core.api.sync.MessageHolder;
 import info.u_team.u_team_core.menu.UContainerMenu;
 import info.u_team.useful_backpacks.component.ItemFilterComponent;
@@ -49,7 +47,7 @@ public class ItemFilterMenu extends UContainerMenu {
 			final boolean newIsStrict = buffer.readBoolean();
 			if (!filterStack.isEmpty()) {
 				filterStack.update(UsefulBackpacksDataComponentTypes.ITEM_FILTER_COMPONENT.get(), ItemFilterComponent.EMPTY, old -> {
-					return ItemFilterComponent.of(newIsStrict, Optional.ofNullable(old.isPresent() ? old.getStack() : null));
+					return ItemFilterComponent.of(newIsStrict, old.getStack());
 				});
 			}
 		}));
@@ -66,7 +64,7 @@ public class ItemFilterMenu extends UContainerMenu {
 			final ItemStack stackToFilter = filterItemSlotInventory.getItem(0);
 			
 			filterStack.update(UsefulBackpacksDataComponentTypes.ITEM_FILTER_COMPONENT.get(), ItemFilterComponent.EMPTY, old -> {
-				return ItemFilterComponent.of(old.isStrict(), Optional.ofNullable(stackToFilter));
+				return ItemFilterComponent.of(old.isStrict(), stackToFilter);
 			});
 		}
 		
