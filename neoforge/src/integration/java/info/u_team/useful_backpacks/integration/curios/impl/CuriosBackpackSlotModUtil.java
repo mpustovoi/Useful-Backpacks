@@ -11,6 +11,7 @@ import top.theillusivec4.curios.api.SlotResult;
 
 public class CuriosBackpackSlotModUtil extends BackpackSlotModUtil {
 	
+	@Override
 	public Optional<ItemStack> find(LivingEntity livingEntity) {
 		return CuriosApi.getCuriosInventory(livingEntity).map(handler -> handler.findFirstCurio(stack -> stack.getItem() instanceof Backpack).map(SlotResult::stack)).orElse(Optional.empty());
 	}

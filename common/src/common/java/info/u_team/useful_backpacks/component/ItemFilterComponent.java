@@ -61,12 +61,12 @@ public class ItemFilterComponent {
 	
 	@Override
 	public boolean equals(Object object) {
-		if (this == object)
+		if (this == object) {
 			return true;
-		if (object == null)
+		}
+		if ((object == null) || (getClass() != object.getClass())) {
 			return false;
-		if (getClass() != object.getClass())
-			return false;
+		}
 		final ItemFilterComponent other = (ItemFilterComponent) object;
 		return strict == other.strict && (stack == other.stack || stack != null && other.stack != null && stack.isEmpty() == other.stack.isEmpty() && ItemStack.isSameItemSameComponents(stack, other.stack));
 	}

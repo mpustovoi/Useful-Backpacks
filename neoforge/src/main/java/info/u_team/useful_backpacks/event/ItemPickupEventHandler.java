@@ -12,7 +12,7 @@ public class ItemPickupEventHandler {
 	private static void onEntityItemPickup(ItemEntityPickupEvent.Pre event) {
 		final Player player = event.getPlayer();
 		
-		if (!(player instanceof ServerPlayer serverPlayer)) {
+		if (!(player instanceof final ServerPlayer serverPlayer)) {
 			return;
 		}
 		

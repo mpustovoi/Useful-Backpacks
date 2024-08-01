@@ -59,7 +59,7 @@ public class BackpackItem extends UItem implements AutoPickupBackpack {
 	
 	@Override
 	public void saveInventory(SimpleContainer inventory, ItemStack backpackStack) {
-		if (inventory instanceof BackpackInventory backpackInventory) {
+		if (inventory instanceof final BackpackInventory backpackInventory) {
 			backpackInventory.writeItemStack();
 		}
 	}

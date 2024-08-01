@@ -26,10 +26,7 @@ abstract class ItemEntityMixin extends Entity {
 	@Inject(method = "playerTouch", at = @At(value = "HEAD"), cancellable = true)
 	private void usefulbackpacks$drop(Player player, CallbackInfo info) {
 		final ItemEntity entity = ((ItemEntity) (Object) this);
-		if (entity.hasPickUpDelay()) {
-			return;
-		}
-		if (!(player instanceof ServerPlayer serverPlayer)) {
+		if (entity.hasPickUpDelay() || !(player instanceof final ServerPlayer serverPlayer)) {
 			return;
 		}
 		

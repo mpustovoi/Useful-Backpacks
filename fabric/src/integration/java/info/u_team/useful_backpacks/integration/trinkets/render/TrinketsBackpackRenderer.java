@@ -21,10 +21,7 @@ public class TrinketsBackpackRenderer implements TrinketRenderer {
 	
 	@Override
 	public void render(ItemStack stack, SlotReference slotReference, EntityModel<? extends LivingEntity> model, PoseStack poseStack, MultiBufferSource bufferSource, int light, LivingEntity livingEntity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-		if (livingEntity.hasItemInSlot(EquipmentSlot.CHEST)) {
-			return;
-		}
-		if (!(livingEntity instanceof AbstractClientPlayer player)) {
+		if (livingEntity.hasItemInSlot(EquipmentSlot.CHEST) || !(livingEntity instanceof final AbstractClientPlayer player)) {
 			return;
 		}
 		

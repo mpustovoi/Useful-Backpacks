@@ -24,7 +24,7 @@ public class TagFilterItem extends FilterItem {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		final ItemStack stack = player.getItemInHand(hand);
-		if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+		if (!level.isClientSide && player instanceof final ServerPlayer serverPlayer) {
 			if (player.isShiftKeyDown()) {
 				stack.set(UsefulBackpacksDataComponentTypes.TAG_FILTER_COMPONENT.get(), TagFilterComponent.EMPTY);
 			} else {

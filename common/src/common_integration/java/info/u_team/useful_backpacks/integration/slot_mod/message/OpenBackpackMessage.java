@@ -19,14 +19,11 @@ public class OpenBackpackMessage {
 	}
 	
 	public static void handle(OpenBackpackMessage message, NetworkContext context) {
-		if (!(context.getPlayer() instanceof ServerPlayer player)) {
+		if (!(context.getPlayer() instanceof final ServerPlayer player)) {
 			return;
 		}
 		context.executeOnMainThread(() -> {
-			if (!player.isAlive()) {
-				return;
-			}
-			if (player.hasContainerOpen()) {
+			if (!player.isAlive() || player.hasContainerOpen()) {
 				return;
 			}
 			final Optional<ItemStack> curioBackpack = BackpackSlotModUtil.findBackpack(player);

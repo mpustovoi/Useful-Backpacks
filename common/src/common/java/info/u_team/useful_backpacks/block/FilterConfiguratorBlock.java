@@ -31,7 +31,7 @@ public class FilterConfiguratorBlock extends UBlock {
 		if (level.isClientSide()) {
 			return InteractionResult.SUCCESS;
 		} else {
-			if (player instanceof ServerPlayer serverPlayer) {
+			if (player instanceof final ServerPlayer serverPlayer) {
 				MenuUtil.openMenu(serverPlayer, state.getMenuProvider(level, pos), data -> {
 				}, true);
 			}
