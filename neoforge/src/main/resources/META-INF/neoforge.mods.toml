@@ -34,3 +34,6 @@ license="Apache-2.0 License"
 		versionRange="[5.6.0.317,)"
 		ordering="NONE"
 		side="BOTH"
+		
+[[mixins]]
+	config = "usefulbackpacks.mixins.json"

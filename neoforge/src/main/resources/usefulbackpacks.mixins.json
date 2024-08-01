@@ -1,0 +1,12 @@
+{
+	"minVersion": "0.8",
+	"required": true,
+	"compatibilityLevel": "JAVA_17",
+	"package": "info.u_team.useful_backpacks.mixin",
+	"mixins": [
+		"ItemEntityMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
