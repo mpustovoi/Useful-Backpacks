@@ -1,0 +1,32 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_enderchest": {
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:ender_chest"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"has_the_recipe": {
+			"conditions": {
+				"recipe": "usefulbackpacks:backpack_enderchest"
+			},
+			"trigger": "minecraft:recipe_unlocked"
+		}
+	},
+	"requirements": [
+		[
+			"has_the_recipe",
+			"has_enderchest"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"usefulbackpacks:backpack_enderchest"
+		]
+	}
+}

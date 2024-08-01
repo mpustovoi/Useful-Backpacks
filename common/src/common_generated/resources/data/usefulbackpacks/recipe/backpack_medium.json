@@ -1,0 +1,24 @@
+{
+	"type": "usefulbackpacks:crafting_backpack",
+	"category": "equipment",
+	"key": {
+		"B": {
+			"item": "usefulbackpacks:backpack_small"
+		},
+		"L": {
+			"item": "minecraft:leather"
+		},
+		"W": {
+			"tag": "minecraft:wool"
+		}
+	},
+	"pattern": [
+		"WLW",
+		"LBL",
+		"WLW"
+	],
+	"result": {
+		"count": 1,
+		"id": "usefulbackpacks:backpack_medium"
+	}
+}

@@ -1,0 +1,9 @@
+{
+	"values": [
+		"minecraft:nether_brick",
+		{
+			"id": "#c:bricks/nether",
+			"required": false
+		}
+	]
+}

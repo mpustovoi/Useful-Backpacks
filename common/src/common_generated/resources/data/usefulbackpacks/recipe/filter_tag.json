@@ -1,0 +1,36 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"key": {
+		"A": {
+			"tag": "usefulbackpacks:ingot/nether_brick"
+		},
+		"E": {
+			"tag": "usefulbackpacks:end_stone"
+		},
+		"I": {
+			"tag": "usefulbackpacks:ingot/iron"
+		},
+		"L": {
+			"item": "minecraft:leather"
+		},
+		"R": {
+			"tag": "usefulbackpacks:dust/redstone"
+		},
+		"S": {
+			"item": "minecraft:string"
+		},
+		"W": {
+			"tag": "minecraft:wool"
+		}
+	},
+	"pattern": [
+		"WLW",
+		"RAS",
+		"IEI"
+	],
+	"result": {
+		"count": 1,
+		"id": "usefulbackpacks:filter_tag"
+	}
+}
