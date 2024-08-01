@@ -7,20 +7,20 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
 import net.neoforged.neoforge.common.ModConfigSpec.Builder;
 
-public class ForgeCommonConfig {
+public class NeoForgeCommonConfig {
 	
 	public static final ModConfigSpec CONFIG;
-	private static final ForgeCommonConfig INSTANCE;
+	private static final NeoForgeCommonConfig INSTANCE;
 	
 	static {
-		final Pair<ForgeCommonConfig, ModConfigSpec> pair = new Builder().configure(ForgeCommonConfig::new);
+		final Pair<NeoForgeCommonConfig, ModConfigSpec> pair = new Builder().configure(NeoForgeCommonConfig::new);
 		CONFIG = pair.getRight();
 		INSTANCE = pair.getLeft();
 	}
 	
 	private final ConfigValueHolder<Boolean> allowStackingBackpacks;
 	
-	private ForgeCommonConfig(Builder builder) {
+	private NeoForgeCommonConfig(Builder builder) {
 		builder.comment("Common configuration settings").push("common");
 		final BooleanValue allowStackingBackpacksValue = builder.comment("This option controls if backpacks in backpacks are allowed.", "If set to true you can put backpacks in existing backpacks and stack them together.", "If set to false you cannot put backpacks in backpacks").define("allowStackingBackpacks", true);
 		allowStackingBackpacks = new ConfigValueHolder<>(allowStackingBackpacksValue, allowStackingBackpacksValue::set);
