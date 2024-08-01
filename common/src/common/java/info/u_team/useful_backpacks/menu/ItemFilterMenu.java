@@ -132,6 +132,10 @@ public class ItemFilterMenu extends UContainerMenu {
 		return strictMessage;
 	}
 	
+	public boolean hasFilterItem() {
+		return !filterItemSlotInventory.getItem(0).isEmpty();
+	}
+	
 	@Override
 	public ItemStack quickMoveStack(Player player, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;

@@ -33,9 +33,6 @@ public class ItemFilterComponent {
 	}
 	
 	public static ItemFilterComponent of(boolean strict, ItemStack stack) {
-		if (stack.isEmpty()) {
-			return EMPTY;
-		}
 		return new ItemFilterComponent(strict, stack.copyWithCount(1));
 	}
 	

@@ -18,6 +18,8 @@ public class ItemFilterScreen extends UContainerMenuScreen<ItemFilterMenu> {
 	private final Component strictTextComponent;
 	private final Component strictTooltipTextComponent;
 	
+	private CheckboxButton isStrictCheckbox;
+	
 	public ItemFilterScreen(ItemFilterMenu menu, Inventory playerInventory, Component title) {
 		super(menu, playerInventory, title, BACKGROUND, 176, 130);
 		
@@ -31,7 +33,7 @@ public class ItemFilterScreen extends UContainerMenuScreen<ItemFilterMenu> {
 	protected void init() {
 		super.init();
 		
-		final CheckboxButton isStrictCheckbox = addRenderableWidget(new CheckboxButton(leftPos + imageWidth - (17 + 16), topPos + 17, 16, 16, strictTextComponent, menu.isStrict(), true));
+		isStrictCheckbox = addRenderableWidget(new CheckboxButton(leftPos + imageWidth - (17 + 16), topPos + 17, 16, 16, strictTextComponent, menu.isStrict(), true));
 		isStrictCheckbox.setTextColor(DEFAULT_TEXT_COLOR);
 		isStrictCheckbox.setLeftSideText(true);
 		isStrictCheckbox.setPressable(() -> {
@@ -39,5 +41,13 @@ public class ItemFilterScreen extends UContainerMenuScreen<ItemFilterMenu> {
 			menu.setStrict(isStrictCheckbox.isChecked());
 		});
 		isStrictCheckbox.setTooltip(Tooltip.create(strictTooltipTextComponent));
+	}
+	
+	@Override
+	public void containerTick() {
+		super.containerTick();
+		if (isStrictCheckbox != null) {
+			isStrictCheckbox.active = menu.hasFilterItem();
+		}
 	}
 }
