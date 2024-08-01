@@ -60,7 +60,7 @@ public interface AutoPickupBackpack extends Backpack {
 				
 				filters.stream().filter(filterStack -> filterStack.getItem() instanceof ItemFilterItem).forEach(filterStack -> {
 					final ItemFilterComponent itemComponent = filterStack.get(UsefulBackpacksDataComponentTypes.ITEM_FILTER_COMPONENT.get());
-					if (itemComponent != null && itemComponent.isPresent() && !itemComponent.getStack().isEmpty()) {
+					if (itemComponent != null && itemComponent.isPresent()) {
 						final MutableComponent component = TooltipCreator.create(UsefulBackpacksReference.MODID, "backpack", "filter_applied_item", 0, Component.translatable(itemComponent.getStack().getDescriptionId()).withStyle(ChatFormatting.YELLOW));
 						if (itemComponent.isStrict()) {
 							component.append(" ").append(TooltipCreator.create(UsefulBackpacksReference.MODID, "backpack", "filter_applied_item", 1));
