@@ -129,7 +129,6 @@ publishMods {
 		
 		requires("u-team-core")
 		optional("jei")
-		optional("curios")
 	}
 	
 	modrinth {
@@ -140,7 +139,6 @@ publishMods {
 		
 		requires("u-team-core")
 		optional("jei")
-		optional("curios")
 	}
 	
 	discord {
@@ -170,6 +168,9 @@ publishing {
 			from gradlefiles.filteredJavaComponent {
 				filterDependency { holder ->
 					"mezz.jei" == holder.dependency.group
+				}
+				filterDependency { holder ->
+					"jopt-simple" == holder.dependency.name
 				}
 			}
 			
