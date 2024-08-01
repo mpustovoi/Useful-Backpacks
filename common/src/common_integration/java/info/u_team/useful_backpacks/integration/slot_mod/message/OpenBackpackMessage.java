@@ -15,6 +15,9 @@ public class OpenBackpackMessage {
 	public static final OpenBackpackMessage INSTANCE = new OpenBackpackMessage();
 	public static final StreamCodec<ByteBuf, OpenBackpackMessage> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 	
+	private OpenBackpackMessage() {
+	}
+	
 	public static void handle(OpenBackpackMessage message, NetworkContext context) {
 		if (!(context.getPlayer() instanceof ServerPlayer player)) {
 			return;
