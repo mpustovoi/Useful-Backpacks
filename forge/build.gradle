@@ -94,11 +94,16 @@ repositories {
 dependencies {
 	minecraft gradlefiles.forgeDependency()
 	
+	// Fix wrong jopt simple version
+	implementation("net.sf.jopt-simple:jopt-simple:5.0.4") {
+		version {
+			strictly "5.0.4"
+		}
+	}
+	
 	implementation "info.u-team:u_team_core-forge-1.21:5.6.0.317"
 	
-	compileOnly "mezz.jei:jei-${config.minecraft.version}-forge-api:${config.jei.version}"
-	compileOnly "mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}"
-	runtimeOnly "mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}"
+	implementation "mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}"
 }
 
 publishMods {
