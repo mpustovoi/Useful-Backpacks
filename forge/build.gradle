@@ -63,12 +63,18 @@ minecraft {
 }
 
 mixin {
+	config "usefulbackpacks.mixins.json"
+	
 	debug.verbose = true
 	debug.export = true
 }
 
 tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
+	
+	manifest {
+		attributes("MixinConfigs": "usefulbackpacks.mixins.json")
+	}
 }
 
 tasks.withType(Javadoc).configureEach { task ->
