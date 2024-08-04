@@ -9,7 +9,7 @@ version = gradlefiles.version()
 
 gradlefiles {
 	vendor = "Team UTeam"
-	orderModPublishTasks(gradlefiles.project("forge"), gradlefiles.project("fabric"))
+	orderModPublishTasks(gradlefiles.project("neoforge"), gradlefiles.project("forge"), gradlefiles.project("fabric"))
 }
 
 ext.commonPom = { pom ->
